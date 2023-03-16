@@ -19,7 +19,7 @@ function App() {
   
   const searchPokemon = async (name: string) => {
   let pokeInfo = await trigger(name, false)
-   
+   //test push
    setCurrentPokemon(pokeInfo.data["sprites"]["versions"]["generation-v"]["black-white"]["animated"]["front_default"] );
   }
 
