@@ -1,27 +1,33 @@
-import { useState } from 'react'
-import { useAppDispatch, useAppSelector } from './hooks'
-import { increment, decrement, incrementByAmount } from './counterSlice'
-import { pokemonApi, useGetPokemonByNameQuery, useLazyGetPokemonByNameQuery } from './pokemonApi'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "./hooks";
+import { increment, decrement, incrementByAmount } from "./redux/counterSlice";
+import {
+  pokemonApi,
+  useGetPokemonByNameQuery,
+  useLazyGetPokemonByNameQuery,
+} from "./pokemonApi";
+import reactLogo from "./assets/react.svg";
+import "./App.css";
 
 function App() {
- 
-
-  const [inputData, setInputData] = useState<number>(0)
-  const [pokemonName, setPokemonName] = useState<string>('')
-  const [currentPokemon, setCurrentPokemon] = useState("")
+  const [inputData, setInputData] = useState<number>(0);
+  const [pokemonName, setPokemonName] = useState<string>("");
+  const [currentPokemon, setCurrentPokemon] = useState("");
   // const count = useAppSelector((state) => state.counter.value)
-  const {data, error, isLoading, refetch} = useGetPokemonByNameQuery('')
-  const [trigger, result, lastPromiseInfo] = useLazyGetPokemonByNameQuery()
- 
-  const dispatch = useAppDispatch()
-  
+  const { data, error, isLoading, refetch } = useGetPokemonByNameQuery("");
+  const [trigger, result, lastPromiseInfo] = useLazyGetPokemonByNameQuery();
+
+  const dispatch = useAppDispatch();
+
   const searchPokemon = async (name: string) => {
-  let pokeInfo = await trigger(name, false)
-   //test push
-   setCurrentPokemon(pokeInfo.data["sprites"]["versions"]["generation-v"]["black-white"]["animated"]["front_default"] );
-  }
+    let pokeInfo = await trigger(name, false);
+    //test push
+    setCurrentPokemon(
+      pokeInfo.data["sprites"]["versions"]["generation-v"]["black-white"][
+        "animated"
+      ]["front_default"]
+    );
+  };
 
   return (
     <div className='App'>
@@ -52,9 +58,7 @@ function App() {
             <>...loading</>
           ) : data ? (
             <>
-              <img
-                src={currentPokemon}
-              ></img>
+              <img src={currentPokemon}></img>
             </>
           ) : null}
         </p>
@@ -65,4 +69,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
